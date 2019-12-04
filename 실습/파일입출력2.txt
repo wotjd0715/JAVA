@@ -1,0 +1,89 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Stud implements Serializable{
+	int n;
+	String name;
+	String tel;
+	String add;
+	
+	public Stud(int n, String name, String tel, String add){
+		this.n = n;this.name=name;this.tel=tel;this.add=add;}
+	public Stud(){
+		
+	}
+	public String toString(){ return "["+n+","+name+","+tel+","+add+"]";
+}
+	public String to2String(){return tel;}
+}
+
+
+
+public class q1 {
+	static final String info = "stud.txt";
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		serial(); deserial();
+	}
+	public static void serial(){
+		try{FileOutputStream fos=new FileOutputStream(info);//노오드 타입
+		BufferedOutputStream bos=new BufferedOutputStream(fos);//버퍼 타입
+		ObjectOutputStream out=new ObjectOutputStream(bos);
+
+		System.out.print("번호 이름 전화번호 이메일주소 입력: ");
+		Scanner sc = new Scanner(System.in);
+	Stud p1 = new Stud();
+		p1.n=sc.nextInt();Scanner sc2 = new Scanner(System.in);
+		p1.name=sc.next();Scanner sc3 = new Scanner(System.in);
+		p1.tel=sc.next();Scanner sc4 = new Scanner(System.in);
+		p1.add=sc.next();
+		
+		Stud p2 = new Stud();
+		System.out.print("번호 이름 전화번호 이메일주소 입력: ");
+		Scanner sc12= new Scanner(System.in);
+		p2.n=sc.nextInt();Scanner sc22 = new Scanner(System.in);
+		p2.name=sc.next();Scanner sc32 = new Scanner(System.in);
+		p2.tel=sc.next();Scanner sc42 = new Scanner(System.in);
+		p2.add=sc.next();
+		ArrayList list=new ArrayList<>();
+		list.add(p1); list.add(p2);
+
+		out.writeObject(p1); out.writeObject(p2);
+		out.writeObject(list);
+		out.close();
+	}catch(Exception e){e.printStackTrace();}
+}
+	private static void deserial(){
+		try{FileInputStream fis=new FileInputStream(info);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		ObjectInputStream in=new ObjectInputStream(bis);
+		Stud p1=(Stud)in.readObject();
+		Stud p2=(Stud)in.readObject();
+		ArrayList list=(ArrayList)in.readObject();
+
+		
+		
+		System.out.println(list);
+		Scanner sc = new Scanner(System.in);
+		System.out.print("번호를 입력: ");
+		int i = sc.nextInt();
+		
+			if(i==1){
+				System.out.println(p1.tel);
+			}
+			else System.out.println(p2.tel);
+		
+			
+		
+
+		in.close();
+	}catch(Exception e) { e.printStackTrace();}
+	}
+}

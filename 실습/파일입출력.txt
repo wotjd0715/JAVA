@@ -1,0 +1,33 @@
+import java.io.*;
+
+public class r13장예제1 {
+public static void main(String args[]) throws IOException{
+try(//random access file 생성)
+RandomAccessFile inout = new RandomAccessFile("inout.dat","rw");
+){
+//기존에 존재하는 파일내용삭제(파일크기 0으로 세팅)
+inout.setLength(0);
+
+//파일에 정수기록(정수 1개당 4byte)
+for (int i=0;i<200;i++)
+inout.writeInt(i);
+System.out.println("현재파일크기:" + inout.length());
+inout.seek(0);//file pointer를 파일의 첫부분으로 이동
+System.out.println("1번째정수:"+inout.readInt());
+inout.seek(1*4);//file pointer를 2번째 정수로 이동 정수 한개당 4byte이므로 0~3이 첫번째정수 4~7이 두번째
+System.out.println("2번째정수:"+inout.readInt());
+inout.seek(9*4);
+System.out.println("10번째정수:"+inout.readInt());
+
+//위의 10번째걸 불러오면 자동으로 포인터가 40번으로 간다 
+inout.writeInt(555);
+
+inout.seek(inout.length()); // 포인터를 파일의 끝으로 간다
+inout.writeInt(999);
+System.out.println("파일크기:"+inout.length());
+inout.seek(10*4);
+System.out.println("11번째정수:"+inout.readInt());
+}
+
+}
+}

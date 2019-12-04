@@ -1,0 +1,14 @@
+public class TestEqual {
+	public static void main(String[] args) {
+		String s1 = new String("Kim"); 
+		String s2 = new String("Kim");
+//String도 객체라서 원래는 new로 생성해야된다. But 그냥 String n1 = “aa”;로도 생성가능 대신 차이점이있다.
+n1=n2=“aa”(뒤에방법)으로 할경우 n1,n2가 동일한 하나의 aa을 나눠가지지만 앞에 방법으로 할 경우 n1,n2가 각각 “aa”를 가진다.
+
+		if( s1 == s2) //같은객체인가? 내용이같은가x
+//뒷방법으로 할경우 항상 같은객체, 앞방법은 항상 다른객체
+			System.out.println("동일한 문자열입니다.");
+		else 
+			System.out.println("동일한 문자열이 아닙니다.");
+	}
+}

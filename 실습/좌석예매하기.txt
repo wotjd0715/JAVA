@@ -1,0 +1,49 @@
+class bus implements Runnable{
+ private long Balance = 10;
+ public void run(){
+  synchronized(this){
+   ticketing((int)(Math.random()*5)+1);
+   if(getBalance() == 10 || getBalance() == 9 || 
+     getBalance() == 8|| getBalance() == 7 || getBalance() == 6|| getBalance() == 5|| 
+     getBalance() == 4|| getBalance() == 3||getBalance() == 2|| 
+     getBalance() == 1)
+   {try
+   {this.wait();
+    }catch(InterruptedException e){
+    e.printStackTrace();
+   }
+   }
+   else{  this.notify();}
+  }
+ }
+public void ticketing(int men){
+ if(getBalance()-men >= 0){
+   System.out.println(Thread.currentThread().getName()+ " : ");
+   System.out.println("가능한 좌석 : " + getBalance() + "명");
+   Balance -= men;
+   System.out.println("요청좌석수 " + men + "명, " + men + "명이 예약되었다" + ", 남은좌석수" + Balance + "명 "  );
+   System.out.println("--------------------------------");
+   System.out.println("--------------------------------");
+ }else{
+  System.out.println(Thread.currentThread().getName() + ",");
+  System.out.println(" 남은좌석수" + Balance + "명 ,요청좌석수 " + men + "명"  );
+  System.out.println("좌석예약이 불가하다.");
+  System.out.println("--------------------------------");
+  System.out.println("--------------------------------");
+ }
+}
+ public long getBalance() { return Balance;}
+ }
+public class r14장q1 {
+
+public static void main(String[] args) {
+r14장q1 bus = new r14장q1();
+  Thread a = new Thread("Thread0");
+  Thread b = new Thread("Thread1");
+  Thread c = new Thread("Thread2");
+  a.start();
+  b.start();
+  c.start();
+}
+
+}
